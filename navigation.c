@@ -60,18 +60,15 @@ void 		del_path(t_links *path)
 	path->next = NULL;
 }
 
-t_links		**path_init(t_room *start, int ways)
+int 	path_len(t_links *path)
 {
-	t_links **path;
+	int i;
 
-	path = (t_links**)malloc(sizeof(t_links*) * ways + 1);
-
-	while (ways >= 0)
+	i = 0;
+	while (path->next)
 	{
-		path[ways] = malloc(sizeof(t_links));
-		path[ways]->link = start;
-		path[ways]->next = NULL;
-		ways--;
+		i++;
+		path = path->next;
 	}
-	return (path);
+	return (i);
 }

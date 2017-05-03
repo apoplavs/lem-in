@@ -6,7 +6,7 @@
 #    By: apoplavs <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/24 16:11:32 by apoplavs          #+#    #+#              #
-#    Updated: 2017/04/28 12:17:07 by apoplavs         ###   ########.fr        #
+#    Updated: 2017/05/03 13:50:02 by apoplavs         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -18,7 +18,7 @@ LIBFT = libftprintf/libftprintf.a
 
 SRC = main.c get_next_line.c error_management.c\
 validation_data.c read_data.c validation_rooms.c\
-navigation.c find_way.c
+navigation.c find_way.c move_ants.c
 
 OBJ = $(SRC:.c=.o)
 

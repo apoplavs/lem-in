@@ -59,8 +59,12 @@ int 		main(void)
 	ft_read_data(rooms, line);
 	if (check_room_status(0, rooms) || check_room_status(2, rooms))
 		ft_error("ERROR : no start or end room");
-	path = find_way(rooms->next_room, rooms->next_room, ants < 10 ? ants : 10);
-	//ants_run(path, ants);
+	path = find_way(get_room(rooms->next_room, 0),
+					rooms->next_room, ants < 10 ? ants : 10);
+	ft_set_occupied(rooms->next_room);
+	if (!path[0]->next)
+		ft_error("ERROR : any path not found");
+	ants_run(0, path, ants);
 	//ft_del_data(rooms);
 	return (0);
 }

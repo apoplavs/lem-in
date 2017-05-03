@@ -61,3 +61,12 @@ int		check_room_status(int status, t_room *room)
 	}
 	return (1);
 }
+
+void	ft_set_occupied(t_room *rooms)
+{
+	while (rooms)
+	{
+		rooms->occupied = 0;
+		rooms = rooms->next_room;
+	}
+}
