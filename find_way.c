@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-int 		shortest_route(t_room *start, t_links *path)
+int			shortest_route(t_room *start, t_links *path)
 {
 	t_links	*l;
 
@@ -22,14 +22,6 @@ int 		shortest_route(t_room *start, t_links *path)
 		if (l->link->status == 2)
 		{
 			make_path(path, l->link);
-			ft_printf("\n");
-			while (path)
-			{
-				ft_printf("%s", path->link->name);
-				if (path->next)
-					ft_printf("---");
-				path = path->next;
-			}
 			return (1);
 		}
 		l = l->next;
@@ -44,17 +36,7 @@ int			route(t_room *room, t_links *path, int i, int max)
 	l = room->links;
 	room->occupied = 1;
 	if (room->status == 2)
-	{
-		ft_printf("\n");
-		while (path)
-		{
-			ft_printf("%s", path->link->name);
-			if (path->next)
-				ft_printf("---");
-			path = path->next;
-		}
 		return (1);
-	}
 	if (i > max)
 	{
 		del_path(path);
@@ -79,18 +61,16 @@ int			route(t_room *room, t_links *path, int i, int max)
 t_links		**find_way(t_room *start, t_room *room, int ways)
 {
 	t_links	**path;
-	int 	i;
-	int 	l;
+	int		i;
+	int		l;
 
-	//start = get_room(start, 0);
 	i = 0;
 	l = 0;
 	path = path_init(start, ways);
 	if (shortest_route(start, path[i]))
 		return (path);
-	while (l < get_num_of_room(room))
+	while (l < get_num_of_room(room) && i < ways)
 	{
-		//ft_printf("i = %d ", l);
 		if (route(start, path[i], 0, l))
 			i++;
 		else
@@ -101,10 +81,10 @@ t_links		**find_way(t_room *start, t_room *room, int ways)
 
 t_links		**path_init(t_room *start, int ways)
 {
-	t_links **path;
+	t_links	**path;
 
 	path = (t_links**)malloc(sizeof(t_links*) * ways + 1);
-
+	path[ways--] = NULL;
 	while (ways >= 0)
 	{
 		path[ways] = malloc(sizeof(t_links));

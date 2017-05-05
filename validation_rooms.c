@@ -12,19 +12,16 @@
 
 #include "lem_in.h"
 
-int 	check_description_room(t_room *start, char **tab)
+int		check_description_room(t_room *start, char **tab)
 {
 	if (!tab[0] || !tab[1] || !tab[2] || tab[3]
 		|| tab[0][0] == 'L' || tab[0][0] == '#'
 		|| !is_only_digit(tab[1]) || !is_only_digit(tab[2])
 		|| !check_name_room(start, tab[0])
+		|| (tab[1][0] == '0' && tab[1][1])
+		|| (tab[2][0] == '0' && tab[2][1])
 		|| !check_coordinates(start, ft_atoi(tab[1]), ft_atoi(tab[2])))
 		return (0);
-	else if (ft_strchr(tab[0], '-'))
-	{
-		ft_printf("ERROR : I know...\n");
-		return (0);
-	}
 	else
 		return (1);
 }

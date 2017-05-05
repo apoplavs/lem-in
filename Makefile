@@ -6,7 +6,7 @@
 #    By: apoplavs <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/24 16:11:32 by apoplavs          #+#    #+#              #
-#    Updated: 2017/05/03 13:50:02 by apoplavs         ###   ########.fr        #
+#    Updated: 2017/05/05 10:51:03 by apoplavs         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -18,13 +18,13 @@ LIBFT = libftprintf/libftprintf.a
 
 SRC = main.c get_next_line.c error_management.c\
 validation_data.c read_data.c validation_rooms.c\
-navigation.c find_way.c move_ants.c
+navigation.c find_way.c move_ants.c validation_links.c
 
 OBJ = $(SRC:.c=.o)
 
 HEADERS = libftprintf/ft_printf.h lem_in.h get_next_line.h
 
-FLAGS = -Wall
+FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 

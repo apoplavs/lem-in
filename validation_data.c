@@ -12,9 +12,9 @@
 
 #include "lem_in.h"
 
-int 		is_only_digit(char *str)
+int			is_only_digit(char *str)
 {
-	int 	i;
+	int		i;
 
 	i = 0;
 	while (str[i])
@@ -26,24 +26,18 @@ int 		is_only_digit(char *str)
 	return (1);
 }
 
-int 		check_number_of_ants(char *str)
+int			check_number_of_ants(char *str)
 {
-	int 	res;
-	int 	i;
+	int		res;
 
-	i = 0;
-	if (ft_strlen(str) > 10)
+	if (!is_only_digit(str))
+		ft_error("ERROR : number of ants is invalid value");
+	if (ft_strlen(str) > 10 || (ft_strlen(str) == 10 && str[0] > '2'))
 		ft_error("ERROR : I do not hold as many ants");
-	while (str[i])
-	{
-		if (ft_isdigit(str[i]) == 0 && str[i] != '+')
-			ft_error("ERROR : number of ants is invalid value");
-		i++;
-	}
 	res = ft_atoi(str);
 	free(str);
 	if (res < 1)
-		ft_error("ERROR : number of ants should only be positive value");
+		ft_error("ERROR : number of ants should only be positive integer");
 	return (res);
 }
 
@@ -82,4 +76,11 @@ void		make_link(t_room *room, char *src, char *dst)
 		l->next = NULL;
 		l1->next = l;
 	}
+}
+
+void		print_comments(char *str)
+{
+	ft_putstr(str);
+	ft_putchar('\n');
+	free(str);
 }

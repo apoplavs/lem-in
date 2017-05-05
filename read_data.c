@@ -12,9 +12,9 @@
 
 #include "lem_in.h"
 
-int		read_start(t_room *rooms, char *line)
+int			read_start(t_room *rooms, char *line)
 {
-	char **tab;
+	char	**tab;
 
 	free(line);
 	if (!check_room_status(0, rooms))
@@ -22,7 +22,8 @@ int		read_start(t_room *rooms, char *line)
 	if (get_next_line(0, &line) < 1)
 		ft_error("ERROR : description of start room not found");
 	tab = ft_strsplit(line, ' ');
-	if (!check_description_room(rooms, tab))
+	if (!check_description_room(rooms, tab) || ft_strstr(line, "  ")
+		|| line[ft_strlen(line) - 1] == ' ' || line[0] == ' ')
 		ft_error("ERROR : invalid description of start room");
 	ft_putstr("##start\n");
 	rooms = create_room(rooms);
@@ -37,10 +38,9 @@ int		read_start(t_room *rooms, char *line)
 	return (1);
 }
 
-
-int		read_end(t_room *rooms, char *line)
+int			read_end(t_room *rooms, char *line)
 {
-	char **tab;
+	char	**tab;
 
 	free(line);
 	if (!check_room_status(2, rooms))
@@ -48,7 +48,8 @@ int		read_end(t_room *rooms, char *line)
 	if (get_next_line(0, &line) < 1)
 		ft_error("ERROR : description of end room not found");
 	tab = ft_strsplit(line, ' ');
-	if (!check_description_room(rooms, tab))
+	if (!check_description_room(rooms, tab) || ft_strstr(line, "  ")
+		|| line[ft_strlen(line) - 1] == ' ' || line[0] == ' ')
 		ft_error("ERROR : invalid description of end room");
 	ft_putstr("##end\n");
 	rooms = create_room(rooms);
@@ -63,12 +64,13 @@ int		read_end(t_room *rooms, char *line)
 	return (1);
 }
 
-int		read_room(t_room *rooms, char *line)
+int			read_room(t_room *rooms, char *line)
 {
-	char **tab;
+	char	**tab;
 
 	tab = ft_strsplit(line, ' ');
-	if (!check_description_room(rooms, tab))
+	if (!check_description_room(rooms, tab) || ft_strstr(line, "  ")
+		|| line[ft_strlen(line) - 1] == ' ' || line[0] == ' ')
 	{
 		free(line);
 		return (0);
@@ -85,25 +87,19 @@ int		read_room(t_room *rooms, char *line)
 	return (1);
 }
 
-int		read_link(t_room *rooms, char *line)
+int			read_link(t_room *rooms, char *line)
 {
-	char **tab;
+	char	**tab;
 
-	tab = ft_strsplit(line, '-');
-	if (!tab[0] || !tab[1] || tab[2] || check_name_room(rooms, tab[0])
-		|| check_name_room(rooms, tab[1]) || ft_strstr(line, "--")
-		|| line[0] == '-' || line[ft_strlen(line) - 1] == '-'
-		|| ft_strequ(tab[0], tab[1]))
-	{
-		free(line);
+	if (ft_strlen(line) < 3
+		|| !(tab = check_link_name(rooms, rooms, line))
+		|| !tab[1] || ft_strequ(tab[0], tab[1]))
 		return (0);
-	}
 	ft_putstr(line);
 	ft_putchar('\n');
 	make_link(rooms, tab[0], tab[1]);
 	make_link(rooms, tab[1], tab[0]);
 	del_tab(tab);
-	rooms->status = 1;
 	free(line);
 	return (1);
 }
@@ -113,11 +109,7 @@ void		ft_read_links(t_room *rooms, char *line)
 	if (ft_strchr(line, '-'))
 	{
 		if (!read_link(rooms, line))
-		{
-			if (!line)
-				free(line);
 			return ;
-		}
 	}
 	while (get_next_line(0, &line) > 0)
 	{
@@ -127,9 +119,9 @@ void		ft_read_links(t_room *rooms, char *line)
 				break ;
 		}
 		else if (line[0] == '#')
-			ft_printf("%s\n", line);
+			print_comments(line);
 		else
 			break ;
 	}
+	free(line);
 }
-

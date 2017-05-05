@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-void 		ft_error(char *str)
+void		ft_error(char *str)
 {
 	ft_printf("%s\n", str);
 	exit(1);
@@ -29,7 +29,7 @@ void		del_tab(char **tab)
 	free(tab);
 }
 
-t_room 		*create_room(t_room *room)
+t_room		*create_room(t_room *room)
 {
 	t_room	*p;
 
@@ -45,7 +45,7 @@ t_room 		*create_room(t_room *room)
 	return (p);
 }
 
-int 		is_room(char *line)
+int			is_room(char *line)
 {
 	char **tab;
 
@@ -62,9 +62,17 @@ int 		is_room(char *line)
 	}
 }
 
-void 		delete_rooms(t_room *room)
+void		delete_room(t_room *room)
 {
+	t_links	*link;
+
 	if (room->name != NULL)
 		free(room->name);
+	while (room->links)
+	{
+		link = room->links;
+		room->links = room->links->next;
+		free(link);
+	}
 	free(room);
 }

@@ -12,7 +12,6 @@
 
 #include "lem_in.h"
 
-
 t_room		*get_room(t_room *start, int status)
 {
 	while (start)
@@ -24,9 +23,9 @@ t_room		*get_room(t_room *start, int status)
 	return (NULL);
 }
 
-int 		get_num_of_room(t_room *room)
+int			get_num_of_room(t_room *room)
 {
-	int 	i;
+	int		i;
 
 	i = 0;
 	while (room)
@@ -37,7 +36,7 @@ int 		get_num_of_room(t_room *room)
 	return (i);
 }
 
-int		make_path(t_links *path, t_room *link)
+int			make_path(t_links *path, t_room *link)
 {
 	t_links	*new_path;
 
@@ -50,9 +49,9 @@ int		make_path(t_links *path, t_room *link)
 	return (1);
 }
 
-void 		del_path(t_links *path)
+void		del_path(t_links *path)
 {
-	if (!path->next)
+	if (!path || !path->next)
 		return ;
 	while (path->next->next)
 		path = path->next;
@@ -60,9 +59,9 @@ void 		del_path(t_links *path)
 	path->next = NULL;
 }
 
-int 	path_len(t_links *path)
+int			path_len(t_links *path)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (path->next)
