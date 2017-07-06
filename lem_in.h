@@ -13,7 +13,7 @@
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
-# include "get_next_line.h"
+# include "libftprintf/get_next_line.h"
 
 typedef struct		s_links
 {
